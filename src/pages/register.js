@@ -95,12 +95,7 @@ const Register = () => {
     <form onSubmit={handleSubmit}>
     <h1>Register</h1>
         {inputs.map((it) => (
-          <FormInput
-            key={it.id}
-            {...it}
-            value={values[it.name]}
-            onChange={onChange}
-          />
+          <FormInput key={it.id} {...it} value={values[it.name]} onChange={onChange}/>
         ))
       }
         <button>Submit</button>
