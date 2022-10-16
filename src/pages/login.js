@@ -53,7 +53,7 @@ const  Login=()=> {
           JSON.stringify(data.user)
         );
 
-        navigate("/");
+        navigate("/dashboard");
       }
     }
   };
