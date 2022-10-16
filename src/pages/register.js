@@ -94,14 +94,15 @@ const Register = () => {
     <div className="app">
     <form onSubmit={handleSubmit}>
     <h1>Register</h1>
-        {inputs.map((input) => (
+        {inputs.map((it) => (
           <FormInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
+            key={it.id}
+            {...it}
+            value={values[it.name]}
             onChange={onChange}
           />
-        ))}
+        ))
+      }
         <button>Submit</button>
       </form>
     </div>
