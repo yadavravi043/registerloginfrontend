@@ -9,7 +9,9 @@ function Dashboard() {
            }
          }, []);
   return (
-    <div>dashboard</div>
+    <>
+    <h1>My Dashboard</h1>
+    </>
   )
 }
 
