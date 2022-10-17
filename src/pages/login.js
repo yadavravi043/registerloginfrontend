@@ -52,12 +52,10 @@ const  Login=()=> {
         localStorage.setItem('user',
           JSON.stringify(data.user)
         );
-
         navigate("/dashboard");
       }
     }
   };
-
   return (
     <>
     <FormContainer>
@@ -84,9 +82,7 @@ const  Login=()=> {
     </>
   );
 }
-
 export default Login;
-
 
 const FormContainer = styled.div`
   height: 100vh;
