@@ -12,6 +12,8 @@ const Register = () => {
     birthday: "",
     password: "",
     confirmPassword: "",
+    contactNumber:"",
+
   });
 
   const inputs = [
@@ -63,21 +65,30 @@ const Register = () => {
       pattern: values.password,
       required: true,
     },
+    {
+      id: 6,
+      name: "contactNumber",
+      type: "text",
+      placeholder: "Contact Number",
+      errorMessage: "Please fill contact number!",
+      label: "Contact Number",
+      required: false,
+    },
   ];
 
   const handleSubmit =  async(e) => {
     e.preventDefault();
-    const {username,email,password,birthday}=values;
+    const {username,email,password,birthday,contactNumber}=values;
 
     const{data}=   await axios.post('http://localhost:5000/api/auth/register',{
-      username,email,password,birthday,
+      username,email,password,birthday,contactNumber
     })
     if(data.status===true){
       
       localStorage.setItem("user", JSON.stringify(data.user) );
       navigate("/login");
     }
-    setValues({username:"",email:"",birthday:"",password:"",confirmPassword:""})
+    setValues({username:"",email:"",birthday:"",password:"",confirmPassword:"",contactNumber:""})
     
   };
 
@@ -89,7 +100,9 @@ const Register = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
     
   };
-
+const moveToLogin=()=>{
+  navigate("/login")
+}
   return (
     <>
     <div className="app">
@@ -100,6 +113,10 @@ const Register = () => {
         ))
       }
         <button>Submit</button>
+        <div style={{display:"flex",flexDirection:"column"}}>
+        <p>Already have an account ?</p>
+        <a onClick={moveToLogin}>login</a>
+        </div>
       </form>
     </div>
     </>
