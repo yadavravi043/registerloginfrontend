@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+// import Cookies from 'js-cookie';
 const  Login=()=> {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
@@ -26,12 +26,12 @@ const  Login=()=> {
   };
 
   const validateForm = () => {
-    const { username, password } = values;
-    if (username === "") {
-      toast.error("Email and Password is required.", toastOptions);
+    const { email, password } = values;
+    if (email === "") {
+      toast.error("Email is required.", toastOptions);
       return false;
     } else if (password === "") {
-      toast.error("Email and Password is required.", toastOptions);
+      toast.error(" Password is required.", toastOptions);
       return false;
     }
     return true;
@@ -40,17 +40,27 @@ const  Login=()=> {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      const { username, password } = values;
+      const { email, password } = values;
       const { data } = await axios.post('http://localhost:5000/api/auth/login', {
-        username,
+        email,
         password,
       });
-      if (data.status === false) {
+      if (data.succes === false) {
         console.log('err')
       }
-      if (data.status === true) {
+      if (data.succes === true) {
+
+        //setting the jwtToken data in cookies of dev tools 
+        // Set cookie with expiration time of one hour
+      //   const expirationTime = new Date();
+      //  expirationTime.setTime(expirationTime.getTime() + 60 * 60 * 1000);
+      //   Cookies.set('authTokenCookie', data.jwtToken,{expires:expirationTime});
+         //getting the cookies data in cookies of dev tools 
+        // const fetchingCookiesToken = Cookies.get('authTokenCookie');
+        // console.log("cookiesData",fetchingCookiesToken)
+
         localStorage.setItem('user',
-          JSON.stringify(data.user)
+        JSON.stringify(data.user)
         );
         navigate("/dashboard");
       }
@@ -62,8 +72,8 @@ const  Login=()=> {
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <input
             type="text"
-            placeholder="Username"
-            name="username"
+            placeholder="Email"
+            name="email"
             onChange={(e) => handleChange(e)}
             min="6"
           />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../style/register.css";
 import FormInput from "../components/Forminput";
 import axios from 'axios'
+import Cookies from 'js-cookie';
 import { useNavigate,Link } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
@@ -66,13 +67,13 @@ const Register = () => {
 
   const handleSubmit =  async(e) => {
     e.preventDefault();
-    const {username,email,password}=values;
+    const {username,email,password,birthday}=values;
 
     const{data}=   await axios.post('http://localhost:5000/api/auth/register',{
-      username,email,password
+      username,email,password,birthday,
     })
-    console.log(data)
     if(data.status===true){
+      
       localStorage.setItem("user", JSON.stringify(data.user) );
       navigate("/login");
     }
